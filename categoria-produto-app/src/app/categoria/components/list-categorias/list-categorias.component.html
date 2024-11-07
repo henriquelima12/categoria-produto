@@ -1,0 +1,35 @@
+<ng-container *ngIf="categorias && categorias.length === 0; else showTable">
+  <p-card header="Lista vazia">
+    <p class="m-0">Não há categorias cadastradas.</p>
+  </p-card>
+</ng-container>
+
+<ng-template pTemplate="header" #showTable>
+  <p-table [value]="categorias">
+    <ng-template>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-categoria>
+      <tr>
+        <td>{{ categoria.id }}</td>
+        <td>{{ categoria.nome }}</td>
+        <td>
+          <button pButton title="Editar" [routerLink]="['/categorias/editar', categoria.id]">
+            <i class="pi pi-pencil"></i>
+          </button>
+          <button pButton title="Excluir" (click)="deleteCategoria(categoria.id)">
+            <i class="pi pi-trash"></i>
+          </button>
+          <button pButton title="Ver produtos relacionados" [routerLink]="['/produtos/categoria', categoria.id]">
+            <i class="pi pi-th-large"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-paginator (onPageChange)="onPageChange($event)" [rows]="size" [totalRecords]="totalRecords" />
+</ng-template>

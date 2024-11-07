@@ -1,0 +1,17 @@
+<div class="form-container">
+    <h2>{{ isEditMode ? 'Editar Categoria' : 'Criar Categoria' }}</h2>
+
+    <form [formGroup]="categoriaForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input id="nome" formControlName="nome" type="text" pInputText
+                [ngClass]="{'p-invalid': categoriaForm.get('nome')?.invalid}" />
+            <div *ngIf="categoriaForm.get('nome')?.invalid && categoriaForm.get('nome')?.touched" class="error">
+                O nome é obrigatório
+            </div>
+        </div>
+
+        <button pButton type="submit" label="{{ isEditMode ? 'Salvar Alterações' : 'Criar Categoria' }}"
+            [disabled]="categoriaForm.invalid"></button>
+    </form>
+</div>
